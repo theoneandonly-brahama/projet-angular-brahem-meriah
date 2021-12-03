@@ -1,0 +1,50 @@
+
+<div class="main container">
+  
+    <h3  class=" rounded">Login</h3>
+    <hr>
+    <div class="submit-form container">
+        <div *ngIf="!submitted">
+          <form  [formGroup]="accountForm" (ngSubmit)="login();onNav()"  novalidate> 
+            <div class="form-group">
+              <label for="login">login</label>
+              <input
+                type="text"
+                class="form-control"
+                id="login"
+                formControlName="login"
+                name="login"
+              />
+            </div>
+            <div class="form-group">
+              <label for="mdp">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="mdp"
+                formControlName="mdp" 
+                name="mdp"
+              />
+            </div>
+    
+            
+            <hr>
+              
+            <div class="d-flex justify-content-between">
+              
+    
+              <input type="submit"  class="btn btn-success" value="login" [disabled]="accountForm.invalid">
+              <input type="button" value="Reset" (click)="renavigate()"  class="btn btn-secondary">
+            </div>
+           
+          </form>
+        </div>
+          
+        
+        <div *ngIf="submitted">
+            <h4>welcome !</h4>
+            
+        </div>
+    </div>
+  
+  </div>

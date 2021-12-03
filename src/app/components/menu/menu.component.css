@@ -1,0 +1,23 @@
+.actif{
+    text-decoration-color: blue;
+}
+
+nav{
+    z-index: 2;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.toright{
+    top: 0;
+    right: 0;    
+}
+
+
+.toright{
+    
+    float: right;
+}
+
+

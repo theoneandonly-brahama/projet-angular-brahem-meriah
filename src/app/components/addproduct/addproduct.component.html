@@ -1,0 +1,104 @@
+<div class="main container">
+  
+  <h3  class=" rounded">Add Product</h3>
+  <hr>
+  <div class="submit-form container">
+      <div *ngIf="!submitted">
+        <form  [formGroup]="productForm" (ngSubmit)="saveProduct()" novalidate> 
+          <div class="form-group">
+            <label for="lib">Product Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lib"
+              formControlName="lib"
+              name="lib"
+            />
+          </div>
+          <div class="form-group">
+            <label for="photo">Photo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="photo"
+              formControlName="photo" 
+              name="photo"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label for="date_dep">Departure Date</label>
+            <input
+              type="text"
+              class="form-control"
+              id="date_dep"
+              formControlName="date_dep"
+              name="date_dep"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label for="date_rtr">Photo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="date_rtr"
+              formControlName="date_rtr"
+              name="date_rtr"
+            />
+          </div>
+  
+  
+        <div class="form-group">
+            <label for="Prix">Price</label>
+            <input
+              type="number"
+              class="form-control"
+              id="prix"
+              formControlName="prix"
+              name="prix"
+            />
+        </div>
+  
+          <div class="form-group">
+              <label for="cat">Category</label>
+              <select class="form-select" name="cat" formControlName="cat">
+                  <option *ngFor="let c of lesCategories" [value]="c" class="form-select"> {{c}}</option>
+              </select>
+          </div>
+          
+          <div class="form-group ">
+              <label for="nouveau">
+                New : 
+              </label>
+              <input type="checkbox" name="nouveau" formControlName="nouveau"> 
+              
+          </div>
+          <hr>
+            
+          <div class="d-flex justify-content-between">
+            
+  
+            <input type="submit"  class="btn btn-success" value="Add" [disabled]="productForm.invalid">
+            <input type="button" value="Reset"  class="btn btn-secondary" (click)="newProduct()">
+          </div>
+         
+        </form>
+      </div>
+        
+      
+      <div *ngIf="submitted">
+          <h4>You submitted successfully!</h4>
+          <button class="btn btn-success" (click)="newProduct()">Add</button>
+      </div>
+  </div>
+
+</div>
+
+
+
+
+  
+
+
+
