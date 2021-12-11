@@ -16,6 +16,8 @@ import { AddproductComponent } from './components/addproduct/addproduct.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagementComponent } from './components/management/management.component';
 import { LoginComponent } from './components/login/login.component';
+import { AddminlistComponent } from './components/addminlist/addminlist.component';
+import { UpdateproductComponent } from './components/updateproduct/updateproduct.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { LoginComponent } from './components/login/login.component';
     AddproductComponent,
     ManagementComponent,
     LoginComponent,
+    AddminlistComponent,
+    UpdateproductComponent,
     
 
   ],

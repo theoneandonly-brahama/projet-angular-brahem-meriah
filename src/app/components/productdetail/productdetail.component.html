@@ -2,7 +2,7 @@
     <!--
 detail produit
 -->
-    <h1>ref: {{currentprod.id}}</h1>
+    
     <div class="card">
         <h1>Ref: {{currentprod.lib}}</h1>
         <div class="container rounded">
@@ -18,62 +18,84 @@ detail produit
                 <div class="details col-md-6">
                     <h3 class="product-title">Billet pour {{currentprod.lib}}</h3>
                 
-                    <h4 class="price">PRIX ACTUEL: <span>{{currentprod.prix}} DT</span></h4>
+                    <h4 class="price">PRIX ACTUEL: <span>{{currentprod.prix| number }} DT</span></h4>
+                    <strong class="fa fa-exclamation price bg-dark rounded-pill" style="color: #ff9f1a; width: 100px;"[hidden]="currentprod.nouv">Nouveau </strong>
                     <p class="product-description">Best Tunisia Travel vous offre le voyage de rêve à <strong>{{currentprod.lib}}</strong> à bas prix  </p>
-                    <div class="action">
-                        <button class="add-to-cart btn btn-default" type="button"style="color: black;background-color:grey;">Acheter ce billet</button>
-                    </div>
+                    <h3>Category: {{currentprod.cat}}</h3>
+                    <br>
+                    <i class="fa fa-suitcase "> Date Depart : {{currentprod.date_dep}}</i>
+                    <br>
+                    <i class="fa fa-suitcase "> Date retour : {{currentprod.date_rtr}}</i>
+                    
                 </div>
             </div>
         </div>
-<!--
-commentaire
--->
+<hr>
         <div class="container">
             <div class="be-comment-block">
-                <h1 class="comments-title">Comments (nombre de comments)</h1>
+                <h1 class="comments-title">Comments </h1>
                 <div class="be-comment">
-                    <div class="be-img-comment">	
+                    <div class="be-comment-content" *ngFor=" let co of this.currentprod.comments">
+                        
                      
-                            <img src="/assets/user.png" alt="" style="border-radius: 50%;width: 100px;">
-                        
-                    </div>
-                    <div class="be-comment-content">
-                        
                             <span class="be-comment-name">
-                                <h3>nom du client</h3>
+                                <h4>
+                                    <img src="/assets/user.png" alt="" class="be-img-comment" style="border-radius: 50%;width: 50px; height: 50px;">
+
+                                    {{co.username}}
+                                </h4>
                                 </span>
-                            <span class="be-comment-time">
-                                <i class="fa fa-clock-o"></i>
-                               26/01/2001 date de commentaire
+                    
+                        
+                            
+                            <span class="be-comment-time fa fa-clock container">
+                                
+                               <i>{{co.date | date}}</i>
                             </span>
             
                         <p class="be-comment-text">
-                            commentaire
+                            -<strong>{{co.message}}</strong>
                         </p>
                     </div>
                 </div>
-                <form class="form-group">
+
+                <form class="form-group" [formGroup]="commentForm" (ngSubmit)="savecomment(); newcomment()" novalidate>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group fl_icon">
                                 <div class="icon"><i class="fa fa-user"></i></div>
-                                <input class="form-control" type="text" placeholder="Your name">
+                                <input type="text"
+                                class="form-control"
+                                id="username"
+                                formControlName="username"
+                                name="username"
+                                placeholder="Your name">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 fl_icon">
                             <div class="form-group fl_icosn">
                                 <div class="icon"><i class="fa fa-envelope-o"></i></div>
-                                <input class="form-control" type="email" placeholder="Your email">
+                                <input 
+                                class="form-control"
+                                id="mail"
+                                formControlName="mail"
+                                name="mail"
+                                type="email" 
+                                placeholder="Your email">
                             </div>
                         </div>
                         <div class="col-xs-12">									
                             <div class="form-group">
-                                <textarea class="form-control" required="" placeholder="Your text"></textarea>
+                                <textarea 
+                                class="form-control"
+                                id="message"
+                                formControlName="message"
+                                name="message"
+                                placeholder="Your comment"></textarea>
                             </div>
                         </div>
                         <br>
-                        <button class="add-to-cart btn btn-default" type="button" style="color: black;background-color:grey;">envoyer</button>
+                        <button class=" btn btn-secondary" [disabled]="commentForm.invalid">envoyer</button>
                     </div>
                 </form>
             </div>

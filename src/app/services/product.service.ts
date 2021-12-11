@@ -1,39 +1,32 @@
 import { Injectable } from '@angular/core';
-import { FirebaseService } from './firebase.service';
 import { Product } from '../models/product';
 import { map } from 'rxjs/operators'
+import { CommentService } from './comment.service';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  productlist: Product[];
-  currrentproduct?:Product;
-  currentIndex = -1;
-  title = '';
 
-  constructor(public crud:FirebaseService) {
-    
-    
+  private dbPathp = 'Produits';
+  productref: AngularFirestoreCollection<Product>;
+  
+  prodlist: Product[];
+
+  constructor(private crud: AngularFirestore, private comms:CommentService) {
+    this.productref = crud.collection(this.dbPathp);
+
+   }
+
+  getall():Product[] {
+    this.retrieveProds()
+    return this.prodlist
     
    }
 
-    getall(){
-    this.retrieveProds();
-    
-    console.log(this.productlist)
-    return this.productlist
-    
-   }
-
-  refreshList(): void {
-    this.currrentproduct = undefined;
-    this.currentIndex = -1;
-    this.retrieveProds();
-  }
-
-  retrieveProds(): void {
-    this.crud.getAll().snapshotChanges().pipe(
+   retrieveProds(): void{
+    this.productref.snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ id: c.payload.doc.id, ...c.payload.doc.data() })
@@ -41,13 +34,31 @@ export class ProductService {
       )
     ).subscribe(data => {
       
-      this.productlist = data;
+      this.prodlist=data;
     });
-    console.log(this.productlist)
+    
   }
 
-  setActiveprod(prod: Product, index: number): void {
-    this.currrentproduct = prod;
-    this.currentIndex = index;
+  getproduct(id:String){
+    for(let p of this.prodlist){
+      if(id==p.id){
+        p.comments=this.comms.getProductComms(p.id)
+        return p;
+      }
+    }
+    return undefined
+  }
+
+  delete(id: string): Promise<void> {
+    return this.productref.doc(id).delete();
+  }
+  create(tutorial: Product): any {
+    console.log('works---')
+    return this.productref.add({ ...tutorial });
+    
+  }
+
+  update(id: string, data: any): Promise<void> {
+    return this.productref.doc(id).update(data);
   }
 }

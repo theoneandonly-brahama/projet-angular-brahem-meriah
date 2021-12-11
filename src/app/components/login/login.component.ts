@@ -34,15 +34,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     let c=Object.assign({},this.accountForm.value) 
-    
-
-    
     this.auth.retrieveAccounts();
-   
-    
-    
-   
-
     console.log(this.auth.acountlist)
 
     for (let co of this.auth.acountlist){

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Compte } from '../models/compte';
-import { FirebaseService } from './firebase.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,17 @@ export class AuthadminService {
   acountlist: Compte[];
   currentaccount:Compte;
 
+  private dbPatha='Comptes'
+  accountref: AngularFirestoreCollection<Compte>;
   isadmin:boolean;
 
-  
-
-  constructor(private crud: FirebaseService) {
+  constructor(private db: AngularFirestore) {
+    this.accountref = db.collection(this.dbPatha);
     this.retrieveAccounts();
   }
 
-  
-  
   retrieveAccounts():  void {
-    this.crud.getAcc().snapshotChanges().pipe(
+    this.accountref.snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ id: c.payload.doc.id, ...c.payload.doc.data() })

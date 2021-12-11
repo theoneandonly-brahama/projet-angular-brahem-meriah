@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { FirebaseService } from 'src/app/services/firebase.service';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-addproduct',
@@ -17,7 +18,7 @@ export class AddproductComponent implements OnInit {
 
   productForm:FormGroup= new FormGroup({});
 
-  constructor( private crud: FirebaseService, private frbld:FormBuilder) { }
+  constructor( private crud: ProductService, private frbld:FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -33,7 +34,7 @@ export class AddproductComponent implements OnInit {
       
       })
 
-      console.log("link works")
+      
   }
 
   saveProduct(): void {
@@ -41,13 +42,12 @@ export class AddproductComponent implements OnInit {
     this.produit=Object.assign({},this.productForm.value) ; 
     
     this.crud.create(this.produit).then(() => {
-      console.log('Created new item successfully!');
       this.submitted = true;
     });
   }
 
   newProduct(): void {
-    this.productForm.reset();
+    this.productForm.reset({ photo:'../../../assets/', nouveau:true, date_dep: formatDate(new Date(), 'dd-MM-yyyy', 'en'), date_rtr:formatDate(new Date(), 'dd-MM-yyyy', 'en')});
     this.submitted = false;
     this.produit = new Product();
   }

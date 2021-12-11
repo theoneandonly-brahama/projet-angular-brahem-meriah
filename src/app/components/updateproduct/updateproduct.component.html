@@ -1,0 +1,117 @@
+<div class="main container">
+  
+    <h3  class=" rounded">Update Product</h3>
+    <hr>
+    <div class="submit-form container">
+        
+          <form  [formGroup]="productForm" (ngSubmit)="updateTutorial()" novalidate> 
+            <div class="form-group">
+              <label for="lib">Product Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lib"
+                formControlName="lib"
+                name="lib"
+              />
+            </div>
+            <div class="form-group">
+              <label for="photo">Photo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="photo"
+                formControlName="photo" 
+                name="photo"
+              />
+            </div>
+    
+            <div class="form-group">
+              <label for="date_dep">Departure Date</label>
+              <input
+                type="text"
+                class="form-control"
+                id="date_dep"
+                formControlName="date_dep"
+                name="date_dep"
+              />
+            </div>
+            <div class="form-group">
+                <label for="date_rtr">Departure Retour</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="date_rtr"
+                  formControlName="date_rtr"
+                  name="date_rtr"
+                />
+              </div>
+    
+            <div class="form-group">
+              <label for="date_rtr">Photo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="date_rtr"
+                formControlName="date_rtr"
+                name="date_rtr"
+              />
+            </div>
+    
+    
+          <div class="form-group">
+              <label for="Prix">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="prix"
+                formControlName="prix"
+                name="prix"
+              />
+          </div>
+    
+            <div class="form-group">
+                <label for="cat">Category</label>
+                <select class="form-select" name="cat" formControlName="cat">
+                    <option *ngFor="let c of lesCategories" [value]="c" class="form-select"> {{c}}</option>
+                </select>
+            </div>
+            
+            <div class="form-group ">
+                <label for="nouveau">
+                  New : 
+                </label>
+                <input type="checkbox" name="nouv" formControlName="nouv"> 
+                
+            </div>
+            <hr>
+
+              
+            <div class="d-flex justify-content-between">
+              <input type="submit"  class="btn btn-success" value="Update" [disabled]="productForm.invalid">
+              <input type="submit"  class="btn btn-secondary" value="Go Back" (click)="goback()">
+              
+            </div>
+            <h3>Comments</h3>
+            <div class="container">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">message</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let co of this.currentprod.comments; index as i">
+                        <td>{{co.username}}</td>
+                        <td>{{co.message}}</td>
+                        <td> 
+                            <button class="btn btn-danger" (click)="deleteComment(i, co.id)">Delete</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+           
+          </form>
+        

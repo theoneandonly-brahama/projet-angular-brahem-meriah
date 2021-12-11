@@ -1,0 +1,29 @@
+
+  <div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Product Photo</th>
+            <th scope="col">Product id</th>
+            <th scope="col">Product label</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let co of this.prod.prodlist; index as i">
+    
+            <td><img [src]="co.photo"></td>
+            <td>{{co.id}}</td>
+            <td>{{co.lib}}</td>
+            <td>
+                <a class="btn btn-success" routerLink="/management/list/{{co.id}}">Update</a>
+            </td>
+            <td> 
+                <button class="btn btn-danger" (click)="deleteProduct(i, co.id)">Delete</button>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+
+  </div>
+  
