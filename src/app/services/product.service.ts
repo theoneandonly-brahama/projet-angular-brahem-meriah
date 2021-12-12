@@ -3,6 +3,7 @@ import { Product } from '../models/product';
 import { map } from 'rxjs/operators'
 import { CommentService } from './comment.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class ProductService {
 
   private dbPathp = 'Produits';
   productref: AngularFirestoreCollection<Product>;
+ 
+  public search = new BehaviorSubject<string>("");
   
   prodlist: Product[];
 

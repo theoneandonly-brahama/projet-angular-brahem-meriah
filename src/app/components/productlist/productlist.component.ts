@@ -12,6 +12,9 @@ export class ProductlistComponent implements OnInit {
 
   productlist:Product[]
 
+  public searchTerm : string='';
+  searchKey:string ="";
+
   constructor(public prod:ProductService, private comm:CommentService) { 
     
   }
@@ -19,7 +22,14 @@ export class ProductlistComponent implements OnInit {
   ngOnInit(): void {
 
     this.productlist=this.prod.getall();
+    this.prod.search.subscribe((val:any)=>{this.searchKey=val;})
     
+  }
+
+  search(event:any){
+    this.searchTerm =(event.target as HTMLInputElement).value;
+    console.log(this.searchTerm);
+    this.prod.search.next(this.searchTerm);
   }
 
   

@@ -18,6 +18,7 @@ import { ManagementComponent } from './components/management/management.componen
 import { LoginComponent } from './components/login/login.component';
 import { AddminlistComponent } from './components/addminlist/addminlist.component';
 import { UpdateproductComponent } from './components/updateproduct/updateproduct.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { UpdateproductComponent } from './components/updateproduct/updateproduct
     LoginComponent,
     AddminlistComponent,
     UpdateproductComponent,
+    FilterPipe,
     
 
   ],
@@ -41,7 +43,8 @@ import { UpdateproductComponent } from './components/updateproduct/updateproduct
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
